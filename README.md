@@ -26,3 +26,10 @@ minimum that does that correctly.
 `decode` does not reject over-long encodings such as `b"\x80\x00"` for
 zero. If you need canonical form, compare the output of `encode(decode(x))`
 to `x`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
